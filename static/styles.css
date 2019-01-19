@@ -1,0 +1,545 @@
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: url(images/bckgr.png) repeat;
+  background-size: 125px;
+}
+
+.node {
+  margin: 20px 0;
+  max-width: auto;
+  color: white;
+  border-radius: 10px;
+  background: rgba(23, 25, 23, 0.75);
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(20, 20, 20, 0.9);
+          box-shadow: 3px 3px 5px 0px rgba(20, 20, 20, 0.9);
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.node .node-header {
+  font-weight: bold;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(116, 199, 255, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(116, 199, 255, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+  width: 100%;
+}
+
+.node .node-header .node-title {
+  width: 100%;
+  padding: 5px;
+}
+
+.node .node-header .node-title small {
+  display: block;
+  font-style: italic;
+  color: #90a28b;
+}
+
+.node .node-header.centered {
+  text-align: center;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(116, 199, 255, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(116, 199, 255, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node .node-interfaces {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.node .node-interfaces > li {
+  padding: 5px;
+}
+
+.node .node-interfaces .bullet {
+  display: inline-block;
+  position: relative;
+  width: .6em;
+  height: .6em;
+  border: 1px solid rgba(116, 199, 255, 0.6);
+  border-radius: 100%;
+  margin-right: .5em;
+}
+
+.node .node-interfaces .bullet.full {
+  background: 116,199,255;
+}
+
+.node .node-interfaces .bullet::after {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  right: -120%;
+  content: " ";
+  width: 0;
+  height: 0;
+  border: 0.15em solid transparent;
+  border-left-color: rgba(116, 199, 255, 0.6);
+}
+
+.node .node-interfaces .arrow {
+  display: inline-block;
+  position: relative;
+  width: .35em;
+  height: .7em;
+  background: white;
+  margin-right: .5em;
+}
+
+.node .node-interfaces .arrow.full {
+  background: white;
+}
+
+.node .node-interfaces .arrow::after {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 100%;
+  content: " ";
+  width: 0;
+  height: 0;
+  border: 0.35em solid transparent;
+  border-left-color: white;
+}
+
+.node .node-interfaces.node-output {
+  text-align: right;
+  float: right;
+}
+
+.node .node-interfaces.node-output .bullet {
+  margin-right: .2em;
+  margin-left: .3em;
+}
+
+.node .node-interfaces.node-output .arrow {
+  margin-right: .5em;
+  margin-left: .5em;
+}
+
+.node.bandcamp .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(78, 155, 172, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(78, 155, 172, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.bandcamp .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(78, 155, 172, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(78, 155, 172, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.bandcamp .node-interfaces .bullet {
+  border-color: rgba(78, 155, 172, 0.6);
+}
+
+.node.bandcamp .node-interfaces .bullet.full {
+  background: #4e9bac;
+}
+
+.node.bandcamp .node-interfaces .bullet::after {
+  border-left-color: rgba(78, 155, 172, 0.6);
+}
+
+.node.delicious .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(36, 140, 255, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(36, 140, 255, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.delicious .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(36, 140, 255, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(36, 140, 255, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.delicious .node-interfaces .bullet {
+  border-color: rgba(36, 140, 255, 0.6);
+}
+
+.node.delicious .node-interfaces .bullet.full {
+  background: #248cff;
+}
+
+.node.delicious .node-interfaces .bullet::after {
+  border-left-color: rgba(36, 140, 255, 0.6);
+}
+
+.node.facebook .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(59, 89, 152, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(59, 89, 152, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.facebook .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(59, 89, 152, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(59, 89, 152, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.facebook .node-interfaces .bullet {
+  border-color: rgba(59, 89, 152, 0.6);
+}
+
+.node.facebook .node-interfaces .bullet.full {
+  background: #3b5998;
+}
+
+.node.facebook .node-interfaces .bullet::after {
+  border-left-color: rgba(59, 89, 152, 0.6);
+}
+
+.node.ficly .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(181, 28, 44, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(181, 28, 44, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.ficly .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(181, 28, 44, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(181, 28, 44, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.ficly .node-interfaces .bullet {
+  border-color: rgba(181, 28, 44, 0.6);
+}
+
+.node.ficly .node-interfaces .bullet.full {
+  background: #b51c2c;
+}
+
+.node.ficly .node-interfaces .bullet::after {
+  border-left-color: rgba(181, 28, 44, 0.6);
+}
+
+.node.flickr .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 99, 219, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 99, 219, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.flickr .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(0, 99, 219, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 99, 219, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.flickr .node-interfaces .bullet {
+  border-color: rgba(0, 99, 219, 0.6);
+}
+
+.node.flickr .node-interfaces .bullet.full {
+  background: #0063db;
+}
+
+.node.flickr .node-interfaces .bullet::after {
+  border-left-color: rgba(0, 99, 219, 0.6);
+}
+
+.node.github .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(65, 131, 196, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(65, 131, 196, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.github .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(65, 131, 196, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(65, 131, 196, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.github .node-interfaces .bullet {
+  border-color: rgba(65, 131, 196, 0.6);
+}
+
+.node.github .node-interfaces .bullet.full {
+  background: #4183c4;
+}
+
+.node.github .node-interfaces .bullet::after {
+  border-left-color: rgba(65, 131, 196, 0.6);
+}
+
+.node.googleplus .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(221, 75, 57, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(221, 75, 57, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.googleplus .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(221, 75, 57, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(221, 75, 57, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.googleplus .node-interfaces .bullet {
+  border-color: rgba(221, 75, 57, 0.6);
+}
+
+.node.googleplus .node-interfaces .bullet.full {
+  background: #dd4b39;
+}
+
+.node.googleplus .node-interfaces .bullet::after {
+  border-left-color: rgba(221, 75, 57, 0.6);
+}
+
+.node.instagram .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(81, 127, 164, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(81, 127, 164, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.instagram .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(81, 127, 164, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(81, 127, 164, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.instagram .node-interfaces .bullet {
+  border-color: rgba(81, 127, 164, 0.6);
+}
+
+.node.instagram .node-interfaces .bullet.full {
+  background: #517fa4;
+}
+
+.node.instagram .node-interfaces .bullet::after {
+  border-left-color: rgba(81, 127, 164, 0.6);
+}
+
+.node.kickstarter .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(118, 204, 30, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(118, 204, 30, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.kickstarter .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(118, 204, 30, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(118, 204, 30, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.kickstarter .node-interfaces .bullet {
+  border-color: rgba(118, 204, 30, 0.6);
+}
+
+.node.kickstarter .node-interfaces .bullet.full {
+  background: #76cc1e;
+}
+
+.node.kickstarter .node-interfaces .bullet::after {
+  border-left-color: rgba(118, 204, 30, 0.6);
+}
+
+.node.lanyrd .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(21, 46, 81, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(21, 46, 81, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.lanyrd .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(21, 46, 81, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(21, 46, 81, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.lanyrd .node-interfaces .bullet {
+  border-color: rgba(21, 46, 81, 0.6);
+}
+
+.node.lanyrd .node-interfaces .bullet.full {
+  background: #152e51;
+}
+
+.node.lanyrd .node-interfaces .bullet::after {
+  border-left-color: rgba(21, 46, 81, 0.6);
+}
+
+.node.lastfm .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(213, 16, 7, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(213, 16, 7, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.lastfm .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(213, 16, 7, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(213, 16, 7, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.lastfm .node-interfaces .bullet {
+  border-color: rgba(213, 16, 7, 0.6);
+}
+
+.node.lastfm .node-interfaces .bullet.full {
+  background: #d51007;
+}
+
+.node.lastfm .node-interfaces .bullet::after {
+  border-left-color: rgba(213, 16, 7, 0.6);
+}
+
+.node.linkedin .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 123, 182, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 123, 182, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.linkedin .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(0, 123, 182, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 123, 182, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.linkedin .node-interfaces .bullet {
+  border-color: rgba(0, 123, 182, 0.6);
+}
+
+.node.linkedin .node-interfaces .bullet.full {
+  background: #007bb6;
+}
+
+.node.linkedin .node-interfaces .bullet::after {
+  border-left-color: rgba(0, 123, 182, 0.6);
+}
+
+.node.photodrop .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(205, 182, 227, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(205, 182, 227, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.photodrop .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(205, 182, 227, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(205, 182, 227, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.photodrop .node-interfaces .bullet {
+  border-color: rgba(205, 182, 227, 0.6);
+}
+
+.node.photodrop .node-interfaces .bullet.full {
+  background: #cdb6e3;
+}
+
+.node.photodrop .node-interfaces .bullet::after {
+  border-left-color: rgba(205, 182, 227, 0.6);
+}
+
+.node.pinterest .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(203, 32, 39, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(203, 32, 39, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.pinterest .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(203, 32, 39, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(203, 32, 39, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.pinterest .node-interfaces .bullet {
+  border-color: rgba(203, 32, 39, 0.6);
+}
+
+.node.pinterest .node-interfaces .bullet.full {
+  background: #cb2027;
+}
+
+.node.pinterest .node-interfaces .bullet::after {
+  border-left-color: rgba(203, 32, 39, 0.6);
+}
+
+.node.rdio .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 136, 218, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 136, 218, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.rdio .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(0, 136, 218, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 136, 218, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.rdio .node-interfaces .bullet {
+  border-color: rgba(0, 136, 218, 0.6);
+}
+
+.node.rdio .node-interfaces .bullet.full {
+  background: #0088da;
+}
+
+.node.rdio .node-interfaces .bullet::after {
+  border-left-color: rgba(0, 136, 218, 0.6);
+}
+
+.node.soundcloud .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 102, 0, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(255, 102, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.soundcloud .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(255, 102, 0, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(255, 102, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.soundcloud .node-interfaces .bullet {
+  border-color: rgba(255, 102, 0, 0.6);
+}
+
+.node.soundcloud .node-interfaces .bullet.full {
+  background: #f60;
+}
+
+.node.soundcloud .node-interfaces .bullet::after {
+  border-left-color: rgba(255, 102, 0, 0.6);
+}
+
+.node.twitter .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 172, 237, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 172, 237, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.twitter .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(0, 172, 237, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 172, 237, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.twitter .node-interfaces .bullet {
+  border-color: rgba(0, 172, 237, 0.6);
+}
+
+.node.twitter .node-interfaces .bullet.full {
+  background: #00aced;
+}
+
+.node.twitter .node-interfaces .bullet::after {
+  border-left-color: rgba(0, 172, 237, 0.6);
+}
+
+.node.vimeo .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(170, 212, 80, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(170, 212, 80, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.vimeo .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(170, 212, 80, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(170, 212, 80, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.vimeo .node-interfaces .bullet {
+  border-color: rgba(170, 212, 80, 0.6);
+}
+
+.node.vimeo .node-interfaces .bullet.full {
+  background: #aad450;
+}
+
+.node.vimeo .node-interfaces .bullet::after {
+  border-left-color: rgba(170, 212, 80, 0.6);
+}
+
+.node.youtube .node-header {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(187, 0, 0, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(187, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.youtube .node-header.centered {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(187, 0, 0, 0.4)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(187, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.node.youtube .node-interfaces .bullet {
+  border-color: rgba(187, 0, 0, 0.6);
+}
+
+.node.youtube .node-interfaces .bullet.full {
+  background: #b00;
+}
+
+.node.youtube .node-interfaces .bullet::after {
+  border-left-color: rgba(187, 0, 0, 0.6);
+}
+/*# sourceMappingURL=styles.css.map */

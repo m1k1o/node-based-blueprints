@@ -1,0 +1,173 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: url(images/bckgr.png) repeat;
+    background-size: 125px;
+}
+
+.node {
+    margin: 20px 0;
+    max-width: auto;
+    color: white;
+    border-radius: 10px;
+    background: rgba(23, 25, 23, .75);
+    box-shadow: 3px 3px 5px 0px rgba(20, 20, 20, .9);
+    border: 1px solid black;
+    overflow: hidden;
+
+    .node-header {
+        font-weight: bold;
+        background: linear-gradient(to right, rgba(116,199,255,0.40) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%);
+        width: 100%;
+        
+        .node-title {
+            width: 100%;
+            padding: 5px;
+
+            small {
+                display: block;
+                font-style: italic;
+                color: rgb(144, 162, 139);
+            }
+        }
+        
+        &.centered {
+            text-align: center;
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(116,199,255,0.40) 50%,rgba(0,0,0,0) 100%);
+        }
+    }
+
+    .node-interfaces {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+
+        & > li {
+            padding: 5px;
+        }
+
+        .bullet {
+            display: inline-block;
+            position: relative;
+            width: .6em;
+            height: .6em;
+            border: 1px solid rgba(116,199,255,0.6);
+            border-radius: 100%;
+            margin-right: .5em;
+            
+            &.full {
+                background: 116,199,255;
+            }
+
+            &::after {
+                display: inline-block;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                right: -120%;
+                content: " ";
+                width: 0;
+                height: 0;
+                border: 0.15em solid transparent;
+                border-left-color: rgba(116,199,255,0.6);
+            }
+        }
+
+        .arrow {
+            display: inline-block;
+            position: relative;
+            width: .35em;
+            height: .7em;
+            background: white;
+            margin-right: .5em;
+            
+            &.full {
+                background: white;
+            }
+
+            &::after {
+                display: inline-block;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 100%;
+                content: " ";
+
+                width: 0;
+                height: 0;
+                border: 0.35em solid transparent;
+                border-left-color: white;
+            }
+        }
+
+        &.node-output {
+            text-align: right;
+            float: right;
+
+            .bullet {
+                margin-right: .2em;
+                margin-left: .3em;
+            }
+
+            .arrow {
+                margin-right: .5em;
+                margin-left: .5em;
+            }
+        }
+    }
+}
+
+@mixin node($color) {
+    .node-header {
+        background: linear-gradient(to right, rgba($color,0.40) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%);
+        
+        &.centered {
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba($color,0.40) 50%,rgba(0,0,0,0) 100%);
+        }
+    }
+
+    .node-interfaces {
+        .bullet {
+            border-color: rgba($color,0.6);
+
+            &.full {
+                background: $color;
+            }
+
+            &::after {
+                border-left-color: rgba($color,0.6);
+            }
+        }
+    }
+}
+
+$profiles: (
+    bandcamp: #4e9bac,
+    delicious: #248cff,
+    facebook: #3b5998,
+    ficly: #b51c2c,
+    flickr: #0063db,
+    github: #4183c4,
+    googleplus: #dd4b39,
+    instagram: #517fa4,
+    kickstarter: #76cc1e,
+    lanyrd: #152e51,
+    lastfm: #d51007,
+    linkedin: #007bb6,
+    photodrop: #cdb6e3,
+    pinterest: #cb2027,
+    rdio: #0088da,
+    soundcloud: #f60,
+    twitter: #00aced,
+    vimeo: #aad450,
+    youtube: #b00
+);
+
+@each $profile, $color in $profiles {
+    .node.#{$profile} {
+        @include node($color);
+    }
+}

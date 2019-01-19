@@ -2,14 +2,25 @@
     box-sizing: border-box;
 }
 
+body, button, input, textarea {
+	font-family: Arial, sans-serif;
+}
+
 body {
-    font-family: sans-serif;
     background: url(images/bckgr.png) repeat;
     background-size: 125px;
 }
 
+html, body, #app {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .node {
-    margin: 20px 0;
+    position: absolute;
+    user-select: none;
+    margin: 20px;
     max-width: auto;
     color: white;
     border-radius: 10px;
@@ -17,11 +28,13 @@ body {
     box-shadow: 3px 3px 5px 0px rgba(20, 20, 20, .9);
     border: 1px solid black;
     overflow: hidden;
+    font-size: 0;
 
     .node-header {
         font-weight: bold;
         background: linear-gradient(to right, rgba(116,199,255,0.40) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%);
         width: 100%;
+        font-size: 1rem;
         
         .node-title {
             width: 100%;
@@ -105,7 +118,7 @@ body {
 
         &.node-output {
             text-align: right;
-            float: right;
+            //float: right;
 
             .bullet {
                 margin-right: .2em;
@@ -116,6 +129,14 @@ body {
                 margin-right: .5em;
                 margin-left: .5em;
             }
+        }
+
+        
+        &.node-output, &.node-input {
+            font-size: 1rem;
+            width: 50%;
+            display: inline-block;
+            vertical-align: top;
         }
     }
 }
@@ -170,4 +191,65 @@ $profiles: (
     .node.#{$profile} {
         @include node($color);
     }
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  max-width: 600px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }

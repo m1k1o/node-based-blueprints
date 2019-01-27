@@ -25,11 +25,11 @@ Vue.component('node', {
         </div>
 
         <ul class="node-interfaces node-input">
-            <li v-for="int_in in el.in"><span v-if="int_in.icon" v-bind:class="int_in.icon"></span>{{ int_in.text}}</li>
+            <li v-for="int_in in el.in"><span v-if="int_in.icon" v-bind:class="int_in.icon"></span>{{ int_in.text }}</li>
         </ul>
         
         <ul class="node-interfaces node-output">
-            <li v-for="out in el.out">{{ out.text}}<span v-if="out.icon" v-bind:class="out.icon"></span></li>
+            <li v-for="out in el.out">{{ out.text }}<span v-if="out.icon" v-bind:class="out.icon"></span></li>
         </ul>
     </div>
     `,
@@ -37,24 +37,29 @@ Vue.component('node', {
         interactSetPosition(dx, dy) { 
             this.pos.x += dx;
             this.pos.y += dy;
-            //this.$emit('update:pos', { ...this.pos })
         },
         interactSetSize(w, h) { 
             this.size = { w, h };
-            //this.$emit('update:size', { ...this.size })
         },
+        updateData() {
+            if(this.el.pos){
+                this.pos = { ...this.el.pos };
+            }
+
+            if(this.el.size){
+                this.size = { ...this.el.size };
+            }
+        }
+    },
+    watch: { 
+        el: function() {
+            this.updateData();
+        }
     },
     mounted() {
-        if(this.el.pos){
-            this.pos = { ...this.el.pos };
-        }
+        this.updateData();
 
-        if(this.el.size){
-            this.size = { ...this.el.size };
-        }
-
-        const element = this.$refs.interactElement;
-        interact(element).draggable({
+        interact(this.$refs.interactElement).draggable({
             // enable inertial throwing
             //inertia: true,
             // keep the element within the area of it's parent

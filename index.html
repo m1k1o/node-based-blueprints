@@ -19,7 +19,6 @@
                 v-bind:el="el"
                 v-on:update="saveElement(el, $event);"
                 v-on:lines:create="linesCreate($event)"
-                v-on:lines:update="linesUpdate($event)"
                 v-on:dblclick.native="editModal = el"
             ></node>
             
@@ -82,19 +81,17 @@
             </div>
         </modal>
         
-        <div v-for="line in lines" v-bind:style="{
+        <div v-for="line in directionalLines" v-bind:style="{
             transform: 'translateY(-50%) rotate('+line.angle+'rad)',
             top: line.y+'px',
             left: line.x+'px',
             width: line.length+'px'
         }" class="line"></div>
-
-        <div v-if="drawingLine">
-            <div v-bind:style="{
-                top: drawingLine.y+'px',
-                left: drawingLine.x+'px',
-            }" class="line current"></div>
-        </div>
+        
+        <div v-if="drawingLine" v-bind:style="{
+            top: drawingLine.y+'px',
+            left: drawingLine.x+'px',
+        }" class="line current"></div>
     </div>
 
     <!-- libs -->

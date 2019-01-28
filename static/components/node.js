@@ -1,3 +1,26 @@
+Vue.component('icon', {
+    props: ['el'],
+    data() {
+        return {};
+    },
+    template: `<span class="icon" v-bind:class="el.icon" @click="clicked($event);"></span>`,
+    methods: {
+        getPos() {
+            let el = this.$el;
+            
+            let rect = el.getBoundingClientRect();
+            let x = rect.left + window.scrollX + (el.offsetWidth/2);
+            let y = rect.top + window.scrollY + (el.offsetHeight/2);
+
+            return { x, y };
+        },
+        clicked() {
+            let { x, y } = this.getPos();
+            this.$emit('click', { x, y })
+        }
+    }
+});
+
 Vue.component('node', {
     props: ['el'],
     data() {
@@ -25,32 +48,47 @@ Vue.component('node', {
             </div>
         </div>
 
-        <ul class="node-interfaces node-input" ref="inputs">
+        <ul class="node-interfaces node-input">
             <li v-for="int_in in el.in">
                 <span class="no-handler">
-                    <span v-if="int_in.icon" class="icon" v-bind:class="int_in.icon" @click="line_create($event, int_in);"></span>{{ int_in.text }}
+                    <icon v-if="int_in.icon" v-bind:el="int_in" ref="handlers" @click="lines_create($event, int_in);"></icon>{{ int_in.text }}
                 </span>
             </li>
         </ul>
         
-        <ul class="node-interfaces node-output" ref="outputs">
+        <ul class="node-interfaces node-output">
             <li v-for="out in el.out">
                 <span class="no-handler">
-                    {{ out.text }}<span v-if="out.icon" class="icon" v-bind:class="out.icon" @click="line_create($event, out);"></span>
+                    {{ out.text }}<icon v-if="out.icon" v-bind:el="out" ref="handlers" @click="lines_create($event, out);"></icon>
                 </span>
             </li>
         </ul>
     </div>
     `,
     methods: {
-        line_create(event, el) {
-            let element = event.path[0];
-            
-            let rect = element.getBoundingClientRect();
-            let x = rect.left + window.scrollX + (element.offsetWidth/2);
-            let y = rect.top + window.scrollY + (element.offsetHeight/2);
+        // Pass event to parent with element
+        lines_create(event, el) {
+            this.$emit('lines:create', { ...event, el });
+        },
+        // Update all lines (on move, on resize)
+        lines_update() {
+            for (var ref in this.$refs.handlers) {
+                let pos = this.$refs.handlers[ref].getPos();
+                let el = this.$refs.handlers[ref].el;
 
-            this.$emit('lines:create', { x, y, el })
+                for (var key in el.lines) {
+                    var obj = el.lines[key];
+                    console.log(obj, pos);
+
+                    if(!obj.from) {
+                        this.$set(obj.line, 'x', pos.x);
+                        this.$set(obj.line, 'y', pos.y);
+                    } else {
+                        this.$set(obj.line, 'x0', pos.x);
+                        this.$set(obj.line, 'y0', pos.y);
+                    }
+                }
+            }
         },
         interactSetPosition(dx, dy) { 
             this.pos.x += dx;
@@ -75,6 +113,7 @@ Vue.component('node', {
         }
     },
     mounted() {
+        setTimeout(() => this.lines_update(), 0);
         this.updateData();
 
         interact(this.$refs.interactElement).draggable({
@@ -93,7 +132,7 @@ Vue.component('node', {
             },
             onend: () => {
                 this.$emit('update', { pos: this.pos, size: this.size })
-                this.$emit('lines:update', { ...this.el.in, ...this.el.out })
+                this.lines_update();
             }
         })
         .resizable({
@@ -107,7 +146,7 @@ Vue.component('node', {
             },
             onend: () => {
                 this.$emit('update', { pos: this.pos, size: this.size })
-                this.$emit('lines:update', { ...this.el.in, ...this.el.out })
+                this.lines_update();
             }
         })
         .on('resizemove', (event) => {

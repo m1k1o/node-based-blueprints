@@ -15,6 +15,19 @@ var app = new Vue({
         drawingLine: false,
         lines: {}
     },
+    computed: {
+        directionalLines() {
+            return Object.values(this.lines).map(line => {
+                let { angle, length } = this.getAngleLength(line);
+                
+                return {
+                    x: line.x0,
+                    y: line.y0,
+                    angle, length
+                }
+            })
+        }
+    },
     methods: {
         saveElement(el = null, data = false) {
             if(data) {
@@ -43,55 +56,69 @@ var app = new Vue({
                 }
             })
         },
+        getAngleLength({x0, y0, x, y}) {
+            let length = Math.sqrt(Math.pow(y - y0, 2) + Math.pow(x - x0, 2));
+            let angle = Math.asin((y - y0) / length);
+            
+            if(y0 > y) {
+                x0 < x || (angle =  Math.acos((y - y0) / length) + Math.PI/2);
+            } else {
+                x0 < x || (angle = Math.acos((y - y0) / length) + Math.PI/2);
+            }
+
+            return { length, angle };
+        },
+
+        // Draw new line
         linesCreate(event) {
             let { x, y, el } = event;
 
             if(this.drawingLine) {
                 let { x: x0, y: y0, el: el0 } = this.drawingLine;
-                let length = Math.sqrt(Math.pow(y - y0, 2) + Math.pow(x - x0, 2));
-                let angle = Math.asin((y - y0) / length);
                 
-                if(y0 > y) {
-                    x0 < x || (angle =  Math.acos((y - y0) / length) + Math.PI/2);
-                } else {
-                    x0 < x || (angle = Math.acos((y - y0) / length) + Math.PI/2);
-                }
-
+                // Create unique name
                 let name =  Math.random().toString(36).substring(2, 15);
                 
-                let line = {
-                    x: x0,
-                    y: y0,
-                    length,
-                    angle
-                };
-                this.lines[name] = line;
-                this.drawingLine = null;
+                // Set to global lines
+                let line = { x0, y0, x, y };
+                this.$set(this.lines, name, line);
                 
+                // Set to el_0 lines
                 typeof el0.lines !== 'undefined' || (el0.lines = {});
-                el0.lines[name] = line;
+                el0.lines[name] = { from: true, line };
 
+                // Set to el_1 lines
                 typeof el.lines !== 'undefined' || (el.lines = {});
-                el.lines[name] = line;
+                el.lines[name] = { from: false, line};
 
                 console.log("Line End");
                 this.saveElement();
+                this.drawingLine = null;
             } else {
                 this.drawingLine = { ...event };
                 console.log("Line Start");
             }
         },
-        linesUpdate(event) {
-
-        },
         dataImport(val = null) {
             let obj = !val ? [] : JSON.parse(val);
             
             this.elements = obj.map(node => {
+                let l = (val) => {
+                    let from = false;
+
+                    // Refference in lines
+                    if(!(val in this.lines)) {
+                        this.$set(this.lines, val, {});
+                        from = true;
+                    }
+
+                    return { from, line: this.lines[val]};
+                };
+
                 for(let x of ["in", "out"]) {
                     node[x] = node[x].map(o => {
                         let lines = {};
-                        typeof o.lines !== 'object' || o.lines.map(val => {lines[val] = null});
+                        typeof o.lines !== 'object' || o.lines.map(val => {lines[val] = l(val);});
 
                         o.lines = lines;
                         return o;

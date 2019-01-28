@@ -1,0 +1,26 @@
+body, .node, .node small {
+    color: black !important;
+    background: white !important;
+    box-shadow: none;
+}
+
+.node .node-header {
+	background: transparent !important;
+    border-bottom: 1px solid black !important;
+}
+
+.node .node-interfaces .arrow::after,
+.node .node-interfaces .bullet::after {
+    border-left-color: black !important;
+}
+.node .node-interfaces .arrow {
+    background: black !important;
+    margin-right: .75em !important;
+}
+.node .node-interfaces .bullet {
+    border-color: black !important;
+}
+.node .node-interfaces.node-output .arrow {
+    margin-right: .35em !important;
+    margin-left: .4em !important;
+}

@@ -6,14 +6,21 @@
     <title>Node based programming</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="./static/styles.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/Tabac-Sans.min.css" />
 </head>
 <body>
+    <!--<canvas id="canvas"></canvas>-->
     <div id="app">
-        <button @click="newElement()">New</button>
+        <button @click="newElement();saveElement();">New</button>
         <button @click="exportModal = true">Import / Export</button>
 
         <template v-for="(el, index) in elements">
-            <node :el="el" v-on:update="saveElement(el, $event);" v-on:dblclick.native="editModal = el"></node>
+            <node
+                v-bind:el="el"
+                v-on:update="saveElement(el, $event);"
+                v-on:line_create="lineCreate($event)"
+                v-on:dblclick.native="editModal = el"
+            ></node>
             
             <modal v-if="editModal == el" @close="saveElement(el);editModal = null" v-bind:el="el">
                 <h1 slot="header">Edit node</h1>
@@ -39,7 +46,7 @@
                             </select>
                             <span v-if="int_in.icon" v-bind:class="int_in.icon"></span>
                             <input type="text" v-model="int_in.text">
-                            <button v-on:click="el.in.splice(index, 1);">&times;</button>
+                            <button v-on:click="$delete(el.in, index);">&times;</button>
                         </li>
                         <li><button v-on:click="el.in.push({});">+</button></li>
                     </ul>
@@ -53,12 +60,12 @@
                                 <option>bullet</option>
                                 <option>arrow</option>
                             </select>
-                            <button v-on:click="el.out.splice(index, 1);">&times;</button>
+                            <button v-on:click="$delete(el.out, index);">&times;</button>
                         </li>
                         <li><button v-on:click="el.out.push({});">+</button></li>
                     </ul>
 
-                    <button @click="elements.splice(index, 1);">Remove</button>
+                    <button @click="$delete(elements, index);">Remove</button>
                 </div>
             </modal>
         </template>
@@ -74,6 +81,16 @@
             </div>
         </modal>
         
+        <div v-for="line in lines" v-bind:style="{
+            transform: 'translate3D('+line.x+'px, '+line.y+'px, 0) rotate('+line.angle+'rad)',
+            width: line.length+'px'
+        }" style="height: 1px; background: red;transform-origin: left top;"></div>
+
+        <div v-if="drawingLine">
+            <div v-bind:style="{
+                transform: 'translate3D('+(drawingLine.x-5) +'px, '+(drawingLine.y-4)+'px, 0)'
+            }" style="height: 10px; width: 10px; background: red;border-radius: 10px;"></div>
+        </div>
     </div>
 
     <!-- libs -->

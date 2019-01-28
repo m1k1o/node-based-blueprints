@@ -6,37 +6,14 @@ var app = new Vue({
         exportModal: false,
         importData: '',
 
-        elements: [
-            /*
-            ...['bandcamp','delicious','facebook','ficly','flickr',
-            'github','googleplus','instagram','kickstarter','lanyrd',
-            'lastfm','linkedin','photodrop','pinterest','rdio',
-            'soundcloud','twitter','vimeo','youtube'].map((color) => {
-                return {
-                    title: "Get Colors",
-                    subtitle: "Target is Shoot",
-                    centered: true,
-                    color: color,
-                    in: [
-                        {
-                            icon: "bullet",
-                            text: "Target"
-                        }
-                    ],
-                    out: [
-                        {
-                            icon: "bullet full",
-                            text: "Target"
-                        }
-                    ]
-                }
-            })
-            */
-        ],
+        elements: [],
         colors: ['bandcamp','delicious','facebook','ficly','flickr',
         'github','googleplus','instagram','kickstarter','lanyrd',
         'lastfm','linkedin','photodrop','pinterest','rdio',
-        'soundcloud','twitter','vimeo','youtube']
+        'soundcloud','twitter','vimeo','youtube'],
+
+        drawingLine: false,
+        lines: []
     },
     methods: {
         saveElement(el = null, data = false) {
@@ -66,6 +43,29 @@ var app = new Vue({
                 }
             })
         },
+        lineCreate(event) {
+            let { x, y, el } = event;
+            if(this.drawingLine) {
+                let { x: x0, y: y0 } = this.drawingLine;
+                let length = Math.sqrt(Math.pow(y - y0, 2) + Math.pow(x - x0, 2));
+                let angle = Math.asin((y - y0) / length);
+                
+                if(y0 > y) {
+                    x0 < x || (angle =  Math.acos((y - y0) / length) + Math.PI/2);
+                } else {
+                    x0 < x || (angle = Math.acos((y - y0) / length) + Math.PI/2);
+                }
+
+                this.lines.push({ x: x0, y: y0, length, angle });
+                this.drawingLine = null;
+                console.log("Line End");
+            } else {
+                this.drawingLine = { x, y };
+                console.log("Line Start");
+            }
+            
+            console.log(event);
+        },
         dataImport(val = null) {
             this.elements = !val ? [] : JSON.parse(val);
             this.saveElement();
@@ -77,31 +77,20 @@ var app = new Vue({
 if(localStorage.getItem('elements'))
     app.elements = JSON.parse(localStorage.getItem('elements'));
 else
-    app.elements = [
-        {
-            title: "Get Colors",
-            subtitle: "Target is Shoot",
-            centered: true,
-            color: 'bandcamp',
-            in: [
-                {
-                    icon: "bullet",
-                    text: "Source"
-                }
-            ],
-            out: [
-                {
-                    icon: "bullet",
-                    text: "Target"
-                }
-            ],
-            pos: {
-                x: 50,
-                y: 100
-            },
-            size: {
-                w: 200,
-                h: 100
-            }
-        }
-    ]
+    app.elements = [{"title":"Init","subtitle":"","centered":true,"color":"pinterest","in":[],"out":[{"text":"","icon":"arrow"},{"text":"Output","icon":"bullet"}],"pos":{"x":93,"y":128},"size":{"w":250,"h":185}},{"title":"Send","subtitle":"","centered":true,"color":"kickstarter","in":[{"icon":"arrow"},{"icon":"bullet","text":"Data"}],"out":[],"pos":{"x":570,"y":130},"size":{"w":200,"h":100}}];
+
+    /*
+function init() {
+    canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+}
+init();
+
+var c = document.getElementById('canvas');
+var ctx = c.getContext('2d');
+ctx.beginPath();
+ctx.moveTo(20,20);
+ctx.bezierCurveTo(20,100,50,100,200,200);
+ctx.strokeStyle = "#ffffff";
+ctx.stroke();
+*/

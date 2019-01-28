@@ -18,13 +18,21 @@ html, body, #app {
   height: 100%;
 }
 
+/*#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}*/
 .node {
   position: absolute;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  margin: 20px;
+  margin: 0;
   max-width: auto;
   color: white;
   border-radius: 10px;
@@ -71,6 +79,10 @@ html, body, #app {
   padding: 5px;
 }
 
+.node .node-interfaces .icon {
+  cursor: pointer;
+}
+
 .node .node-interfaces .bullet {
   display: inline-block;
   position: relative;
@@ -105,7 +117,7 @@ html, body, #app {
   width: .35em;
   height: .7em;
   background: white;
-  margin-right: .5em;
+  margin-right: .75em;
 }
 
 .node .node-interfaces .arrow.full {
@@ -136,8 +148,8 @@ html, body, #app {
 }
 
 .node .node-interfaces.node-output .arrow {
-  margin-right: .5em;
-  margin-left: .5em;
+  margin-right: .35em;
+  margin-left: .4em;
 }
 
 .node .node-interfaces.node-output, .node .node-interfaces.node-input {

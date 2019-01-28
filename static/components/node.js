@@ -24,16 +24,35 @@ Vue.component('node', {
             </div>
         </div>
 
-        <ul class="node-interfaces node-input">
-            <li v-for="int_in in el.in"><span v-if="int_in.icon" v-bind:class="int_in.icon"></span>{{ int_in.text }}</li>
+        <ul class="node-interfaces node-input" ref="inputs">
+            <li v-for="int_in in el.in">
+                <span class="no-handler">
+                    <span v-if="int_in.icon" class="icon" v-bind:class="int_in.icon" @click="line_create($event, int_in);"></span>{{ int_in.text }}
+                </span>
+            </li>
         </ul>
         
-        <ul class="node-interfaces node-output">
-            <li v-for="out in el.out">{{ out.text }}<span v-if="out.icon" v-bind:class="out.icon"></span></li>
+        <ul class="node-interfaces node-output" ref="outputs">
+            <li v-for="out in el.out">
+                <span class="no-handler">
+                    {{ out.text }}<span v-if="out.icon" class="icon" v-bind:class="out.icon" @click="line_create($event, out);"></span>
+                </span>
+            </li>
         </ul>
     </div>
     `,
     methods: {
+        line_create(event, el) {
+            let element = event.path[0];
+            let x = this.pos.x + element.offsetLeft + (element.offsetWidth/2);
+            let y = this.pos.y + element.offsetTop + (element.offsetHeight/2);
+            /*
+            let rect = element.getBoundingClientRect();
+            let x = rect.left;//;this.pos.x + element.offsetLeft + (element.offsetWidth);
+            let y = rect.top;//this.pos.y + element.offsetTop + (element.offsetHeight);
+            */
+            this.$emit('line_create', { x, y, el })
+        },
         interactSetPosition(dx, dy) { 
             this.pos.x += dx;
             this.pos.y += dy;
@@ -57,6 +76,8 @@ Vue.component('node', {
         }
     },
     mounted() {
+        console.log(this.$refs.inputs);
+
         this.updateData();
 
         interact(this.$refs.interactElement).draggable({
@@ -64,6 +85,7 @@ Vue.component('node', {
             //inertia: true,
             // keep the element within the area of it's parent
             //allowFrom: '.node-header',
+            ignoreFrom: '.no-handler',
             restrict: {
                 restriction: "parent",
                 //endOnly: true,
@@ -78,9 +100,10 @@ Vue.component('node', {
         })
         .resizable({
             // preserveAspectRatio: true,
+            ignoreFrom: '.no-handler',
             edges: { left: true, right: true, bottom: true, top: true },
             restrict: {
-                // endOnly: true,
+                endOnly: true,
                 // restriction: '.designScreenContainer',
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             },

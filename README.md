@@ -8,7 +8,7 @@
 
 # TODO
 
-- Connecting nodes with lines.
+- Manage line connections in modal box.
 - Design edit modal box.
 
 

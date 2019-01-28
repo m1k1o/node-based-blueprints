@@ -18,7 +18,8 @@
             <node
                 v-bind:el="el"
                 v-on:update="saveElement(el, $event);"
-                v-on:line_create="lineCreate($event)"
+                v-on:lines:create="linesCreate($event)"
+                v-on:lines:update="linesUpdate($event)"
                 v-on:dblclick.native="editModal = el"
             ></node>
             
@@ -74,7 +75,7 @@
             <h1 slot="header">Import / Export</h1>
             <div slot="body">
                 <h2>Export</h2>
-                <textarea rows="5" style="width: 100%;">{{ JSON.stringify(elements) }}</textarea>
+                <textarea rows="5" style="width: 100%;">{{ dataExport() }}</textarea>
                 <h2>Import</h2>
                 <textarea rows="5" style="width: 100%;" v-model="importData"></textarea>
                 <button @click="dataImport(importData);">Apply changes</button>

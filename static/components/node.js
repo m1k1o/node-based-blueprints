@@ -50,7 +50,7 @@ Vue.component('node', {
             let x = rect.left + window.scrollX + (element.offsetWidth/2);
             let y = rect.top + window.scrollY + (element.offsetHeight/2);
 
-            this.$emit('line_create', { x, y, el })
+            this.$emit('lines:create', { x, y, el })
         },
         interactSetPosition(dx, dy) { 
             this.pos.x += dx;
@@ -75,8 +75,6 @@ Vue.component('node', {
         }
     },
     mounted() {
-        console.log(this.$refs.inputs);
-
         this.updateData();
 
         interact(this.$refs.interactElement).draggable({
@@ -95,6 +93,7 @@ Vue.component('node', {
             },
             onend: () => {
                 this.$emit('update', { pos: this.pos, size: this.size })
+                this.$emit('lines:update', { ...this.el.in, ...this.el.out })
             }
         })
         .resizable({
@@ -108,6 +107,7 @@ Vue.component('node', {
             },
             onend: () => {
                 this.$emit('update', { pos: this.pos, size: this.size })
+                this.$emit('lines:update', { ...this.el.in, ...this.el.out })
             }
         })
         .on('resizemove', (event) => {

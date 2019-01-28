@@ -13,7 +13,7 @@ var app = new Vue({
         'soundcloud','twitter','vimeo','youtube'],
 
         drawingLine: false,
-        lines: []
+        lines: {}
     },
     methods: {
         saveElement(el = null, data = false) {
@@ -23,7 +23,7 @@ var app = new Vue({
                 el.size = { ...size };
             }
 
-            localStorage.setItem('elements', JSON.stringify(this.elements))
+            localStorage.setItem('elements', this.dataExport())
         },
         newElement() {
             this.elements.push({
@@ -43,10 +43,11 @@ var app = new Vue({
                 }
             })
         },
-        lineCreate(event) {
+        linesCreate(event) {
             let { x, y, el } = event;
+
             if(this.drawingLine) {
-                let { x: x0, y: y0 } = this.drawingLine;
+                let { x: x0, y: y0, el: el0 } = this.drawingLine;
                 let length = Math.sqrt(Math.pow(y - y0, 2) + Math.pow(x - x0, 2));
                 let angle = Math.asin((y - y0) / length);
                 
@@ -56,26 +57,78 @@ var app = new Vue({
                     x0 < x || (angle = Math.acos((y - y0) / length) + Math.PI/2);
                 }
 
-                this.lines.push({ x: x0, y: y0, length, angle });
+                let name =  Math.random().toString(36).substring(2, 15);
+                
+                let line = {
+                    x: x0,
+                    y: y0,
+                    length,
+                    angle
+                };
+                this.lines[name] = line;
                 this.drawingLine = null;
+                
+                typeof el0.lines !== 'undefined' || (el0.lines = {});
+                el0.lines[name] = line;
+
+                typeof el.lines !== 'undefined' || (el.lines = {});
+                el.lines[name] = line;
+
                 console.log("Line End");
+                this.saveElement();
             } else {
-                this.drawingLine = { x, y };
+                this.drawingLine = { ...event };
                 console.log("Line Start");
             }
-            
-            console.log(event);
+        },
+        linesUpdate(event) {
+
         },
         dataImport(val = null) {
-            this.elements = !val ? [] : JSON.parse(val);
+            let obj = !val ? [] : JSON.parse(val);
+            
+            this.elements = obj.map(node => {
+                for(let x of ["in", "out"]) {
+                    node[x] = node[x].map(o => {
+                        let lines = {};
+                        typeof o.lines !== 'object' || o.lines.map(val => {lines[val] = null});
+
+                        o.lines = lines;
+                        return o;
+                    });
+                }
+
+                return node;
+            })
+            
             this.saveElement();
-            location.href = location.href;
+        },
+        dataExport() {
+            let obj = JSON.parse(JSON.stringify(this.elements));
+
+            obj = obj.map(node => {
+                for(let x of ["in", "out"]) {
+                    node[x] = node[x].map(({ lines, ...allowed }) => {
+                        let keys = Object.keys(lines || {});
+
+                        if(keys.length) {
+                            return { lines: keys, ...allowed };
+                        } else {
+                            return { ...allowed };
+                        }
+                    });
+                }
+
+                return node;
+            })
+            
+            return JSON.stringify(obj);
         }
     }
 });
 
 if(localStorage.getItem('elements'))
-    app.elements = JSON.parse(localStorage.getItem('elements'));
+    app.dataImport(localStorage.getItem('elements'));
 else
     app.elements = [{"title":"Init","subtitle":"","centered":true,"color":"pinterest","in":[],"out":[{"text":"","icon":"arrow"},{"text":"Output","icon":"bullet"}],"pos":{"x":93,"y":128},"size":{"w":250,"h":185}},{"title":"Send","subtitle":"","centered":true,"color":"kickstarter","in":[{"icon":"arrow"},{"icon":"bullet","text":"Data"}],"out":[],"pos":{"x":570,"y":130},"size":{"w":200,"h":100}}];
 

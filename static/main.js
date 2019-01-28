@@ -71,7 +71,7 @@ var app = new Vue({
 
             return { length, angle };
         },
-        selectLine(key) {
+        deleteLine(key) {
             this.elements.forEach(node => {
                 for(let x of ["in", "out"]) {
                     node[x].forEach(el => {
@@ -109,11 +109,34 @@ var app = new Vue({
                 el.lines[name] = { from: false, line};
 
                 console.log("Line End");
+                this.linesUpdate();
                 this.saveElement();
                 this.drawingLine = null;
             } else {
                 this.drawingLine = { ...event };
                 console.log("Line Start");
+            }
+        },
+        linesUpdate() {
+            canvas_paths = {};
+            let canvas = document.getElementById('canvas');
+            canvas.width = document.getElementById("app").clientWidth;
+            canvas.height = document.getElementById("app").clientHeight;
+        
+            let ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 4;
+            ctx.fillStyle = "#009900";
+            for(let key in this.lines) {
+                let { x0, y0, x, y } = this.lines[key];
+                
+                let path = new Path2D();
+                path.moveTo(x0, y0);
+                path.bezierCurveTo(x0 + (x - x0) / 2, y0, x0 + (x - x0) / 2, y, x, y);
+
+                ctx.stroke(path);
+                canvas_paths[key] = path;
             }
         },
         dataImport(val = null) {
@@ -175,18 +198,18 @@ if(localStorage.getItem('elements'))
 else
     app.elements = [{"title":"Init","subtitle":"","centered":true,"color":"pinterest","in":[],"out":[{"text":"","icon":"arrow"},{"text":"Output","icon":"bullet"}],"pos":{"x":93,"y":128},"size":{"w":250,"h":185}},{"title":"Send","subtitle":"","centered":true,"color":"kickstarter","in":[{"icon":"arrow"},{"icon":"bullet","text":"Data"}],"out":[],"pos":{"x":570,"y":130},"size":{"w":200,"h":100}}];
 
-    /*
-function init() {
-    canvas.width = document.body.clientWidth; //document.width is obsolete
-    canvas.height = document.body.clientHeight; //document.height is obsolete
-}
-init();
+var canvas_paths = {};
+var canvas = document.getElementById('canvas');
+let ctx = canvas.getContext("2d");
+canvas.addEventListener('click', (event) => {
+    var x = event.pageX;
+    var y = event.pageY;
 
-var c = document.getElementById('canvas');
-var ctx = c.getContext('2d');
-ctx.beginPath();
-ctx.moveTo(20,20);
-ctx.bezierCurveTo(20,100,50,100,200,200);
-ctx.strokeStyle = "#ffffff";
-ctx.stroke();
-*/
+    for(let key in canvas_paths) {
+        console.log("clicked ", x, y)
+        if(ctx.isPointInStroke(canvas_paths[key], x, y)) {
+            app.deleteLine(key);
+            app.linesUpdate();
+        }
+    }
+ });

@@ -3,7 +3,10 @@ Vue.component('icon', {
     data() {
         return {};
     },
-    template: `<span class="icon" v-bind:class="el.icon" @click="clicked($event);"></span>`,
+    template: `<span class="icon" v-bind:class="{
+        [el.icon]: true,
+        'full': Object.keys(el.lines).length
+    }" @click="clicked($event);"></span>`,
     methods: {
         getPos() {
             let el = this.$el;
@@ -89,6 +92,8 @@ Vue.component('node', {
                     }
                 }
             }
+
+            this.$emit('lines:update');
         },
         interactSetPosition(dx, dy) { 
             this.pos.x += dx;

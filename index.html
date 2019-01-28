@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="./static/Tabac-Sans.min.css" />
 </head>
 <body>
-    <!--<canvas id="canvas"></canvas>-->
+    <canvas id="canvas"></canvas>
     <div id="app">
         <button @click="newElement();saveElement();">New</button>
         <button @click="exportModal = true">Import / Export</button>
@@ -19,6 +19,7 @@
                 v-bind:el="el"
                 v-on:update="saveElement(el, $event);"
                 v-on:lines:create="linesCreate($event)"
+                v-on:lines:update="linesUpdate()"
                 v-on:dblclick.native="editModal = el"
             ></node>
             
@@ -81,12 +82,12 @@
             </div>
         </modal>
         
-        <div v-for="line in directionalLines" v-bind:style="{
+        <!--<div v-for="line in directionalLines" v-bind:style="{
             transform: 'translateY(-50%) rotate('+line.angle+'rad)',
             top: line.y+'px',
             left: line.x+'px',
             width: line.length+'px'
-        }" class="line" @dblclick="selectLine(line.key)"></div>
+        }" class="line" @dblclick="deleteLine(line.key)"></div>-->
         
         <div v-if="drawingLine" v-bind:style="{
             top: drawingLine.y+'px',

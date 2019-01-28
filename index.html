@@ -70,7 +70,7 @@
             </modal>
         </template>
 
-        <modal v-if="exportModal" @close="exportModal = false">
+        <modal v-if="exportModal" @close="exportModal = false" v-cloak>
             <h1 slot="header">Import / Export</h1>
             <div slot="body">
                 <h2>Export</h2>

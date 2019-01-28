@@ -14,7 +14,8 @@ Vue.component('node', {
     },
     template: `
     <div class="node" v-bind:class="el.color" :style="{
-        transform: 'translate3D('+pos.x+'px, '+pos.y+'px, 0)',
+        top: pos.y+'px',
+        left: pos.x+'px',
         width: size.w+'px',
         height: size.h+'px'
     }" ref="interactElement">
@@ -44,13 +45,11 @@ Vue.component('node', {
     methods: {
         line_create(event, el) {
             let element = event.path[0];
-            let x = this.pos.x + element.offsetLeft + (element.offsetWidth/2);
-            let y = this.pos.y + element.offsetTop + (element.offsetHeight/2);
-            /*
+            
             let rect = element.getBoundingClientRect();
-            let x = rect.left;//;this.pos.x + element.offsetLeft + (element.offsetWidth);
-            let y = rect.top;//this.pos.y + element.offsetTop + (element.offsetHeight);
-            */
+            let x = rect.left + window.scrollX + (element.offsetWidth/2);
+            let y = rect.top + window.scrollY + (element.offsetHeight/2);
+
             this.$emit('line_create', { x, y, el })
         },
         interactSetPosition(dx, dy) { 

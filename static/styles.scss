@@ -26,8 +26,25 @@ html, body, #app {
     z-index: -1;
 }*/
 
+.line {
+    position: absolute;
+    z-index: 1;
+    height: 3px;
+    background: red;
+    transform-origin: left top;
+    border-radius: 10px;
+
+    &.current {
+        transform: translate(-50%, -50%);
+        height: 10px;
+        width: 10px;
+        z-index: 3;
+    }
+}
+
 .node {
     position: absolute;
+    z-index: 2;
     user-select: none;
     margin: 0;
     max-width: auto;

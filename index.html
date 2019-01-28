@@ -82,14 +82,17 @@
         </modal>
         
         <div v-for="line in lines" v-bind:style="{
-            transform: 'translate3D('+line.x+'px, '+line.y+'px, 0) rotate('+line.angle+'rad)',
+            transform: 'translateY(-50%) rotate('+line.angle+'rad)',
+            top: line.y+'px',
+            left: line.x+'px',
             width: line.length+'px'
-        }" style="height: 1px; background: red;transform-origin: left top;"></div>
+        }" class="line"></div>
 
         <div v-if="drawingLine">
             <div v-bind:style="{
-                transform: 'translate3D('+(drawingLine.x-5) +'px, '+(drawingLine.y-4)+'px, 0)'
-            }" style="height: 10px; width: 10px; background: red;border-radius: 10px;"></div>
+                top: drawingLine.y+'px',
+                left: drawingLine.x+'px',
+            }" class="line current"></div>
         </div>
     </div>
 

@@ -33,6 +33,9 @@ html, body, #app {
     background: red;
     transform-origin: left top;
     border-radius: 10px;
+    background-clip: content-box;
+    box-sizing: content-box;
+    padding: 5px 0;
 
     &.current {
         transform: translate(-50%, -50%);

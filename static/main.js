@@ -17,13 +17,16 @@ var app = new Vue({
     },
     computed: {
         directionalLines() {
-            return Object.values(this.lines).map(line => {
+            return Object.keys(this.lines).map(key => {
+                let line = this.lines[key];
                 let { angle, length } = this.getAngleLength(line);
                 
                 return {
                     x: line.x0,
                     y: line.y0,
-                    angle, length
+                    angle,
+                    length,
+                    key
                 }
             })
         }
@@ -68,6 +71,20 @@ var app = new Vue({
 
             return { length, angle };
         },
+        selectLine(key) {
+            this.elements.forEach(node => {
+                for(let x of ["in", "out"]) {
+                    node[x].forEach(el => {
+                        if(typeof el.lines !== 'undefined' && key in el.lines) {
+                            this.$delete(el.lines, key);
+                        }
+                    });
+                }
+            });
+
+            this.$delete(this.lines, key);
+            this.saveElement();
+        },
 
         // Draw new line
         linesCreate(event) {
@@ -102,19 +119,19 @@ var app = new Vue({
         dataImport(val = null) {
             let obj = !val ? [] : JSON.parse(val);
             
+            let l = (val) => {
+                let from = false;
+
+                // Refference in lines
+                if(!(val in this.lines)) {
+                    this.$set(this.lines, val, {});
+                    from = true;
+                }
+                
+                return { from, line: this.lines[val]};
+            };
+
             this.elements = obj.map(node => {
-                let l = (val) => {
-                    let from = false;
-
-                    // Refference in lines
-                    if(!(val in this.lines)) {
-                        this.$set(this.lines, val, {});
-                        from = true;
-                    }
-
-                    return { from, line: this.lines[val]};
-                };
-
                 for(let x of ["in", "out"]) {
                     node[x] = node[x].map(o => {
                         let lines = {};
@@ -131,9 +148,8 @@ var app = new Vue({
             this.saveElement();
         },
         dataExport() {
-            let obj = JSON.parse(JSON.stringify(this.elements));
-
-            obj = obj.map(node => {
+            // Clone object
+            obj = [ ...this.elements ].map(({ ...node }) => {
                 for(let x of ["in", "out"]) {
                     node[x] = node[x].map(({ lines, ...allowed }) => {
                         let keys = Object.keys(lines || {});

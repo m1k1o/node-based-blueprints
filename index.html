@@ -86,7 +86,7 @@
             top: line.y+'px',
             left: line.x+'px',
             width: line.length+'px'
-        }" class="line"></div>
+        }" class="line" @dblclick="selectLine(line.key)"></div>
         
         <div v-if="drawingLine" v-bind:style="{
             top: drawingLine.y+'px',

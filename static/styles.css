@@ -34,6 +34,10 @@ html, body, #app {
   -webkit-transform-origin: left top;
           transform-origin: left top;
   border-radius: 10px;
+  background-clip: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  padding: 5px 0;
 }
 
 .line.current {

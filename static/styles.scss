@@ -67,6 +67,20 @@ html, body, #app {
     border: 1px solid black;
     overflow: hidden;
     font-size: 0;
+    
+    &.transparent {
+        pointer-events: none;
+        background: none;
+        text-shadow: 1px 1px 1px black;
+
+        .node-header, .no-handler {
+            pointer-events: all;
+        }
+        
+        .no-handler {
+            background: rgba(23, 25, 23, .75);
+        }
+    }
 
     .node-header {
         font-weight: bold;
@@ -233,7 +247,7 @@ $profiles: (
     .node.#{$profile} {
         @include node($color);
     }
-    
+
     .bgcolor.#{$profile} {
         background: $color;
     }

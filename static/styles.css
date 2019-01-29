@@ -77,6 +77,20 @@ html, body, #app {
   font-size: 0;
 }
 
+.node.transparent {
+  pointer-events: none;
+  background: none;
+  text-shadow: 1px 1px 1px black;
+}
+
+.node.transparent .node-header, .node.transparent .no-handler {
+  pointer-events: all;
+}
+
+.node.transparent .no-handler {
+  background: rgba(23, 25, 23, 0.75);
+}
+
 .node .node-header {
   font-weight: bold;
   background: -webkit-gradient(linear, left top, right top, from(rgba(116, 199, 255, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));

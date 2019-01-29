@@ -39,13 +39,23 @@ Vue.component('node', {
         };
     },
     template: `
-    <div class="node" v-bind:class="el.color" :style="{
-        top: pos.y+'px',
-        left: pos.x+'px',
-        width: size.w+'px',
-        height: size.h+'px'
-    }" ref="interactElement">
-        <div class="node-header" v-if="el.title" v-bind:class="{'centered': typeof el.centered !== 'undefined' && el.centered}">
+    <div
+        class="node"
+        v-bind:class="{
+            [el.color]: true,
+            'transparent': typeof el.transparent !== 'undefined' && el.transparent
+        }"
+        v-bind:style="{
+            top: pos.y+'px',
+            left: pos.x+'px',
+            width: size.w+'px',
+            height: size.h+'px'
+        }"
+        ref="interactElement"
+    >
+        <div class="node-header" v-if="el.title" v-bind:class="{
+            'centered': typeof el.centered !== 'undefined' && el.centered
+        }">
             <div class="node-title">
                 {{ el.title }} <small v-if="el.subtitle">{{ el.subtitle }}</small>
             </div>

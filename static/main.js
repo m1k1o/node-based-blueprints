@@ -137,14 +137,21 @@ var app = new Vue({
         linesUpdate() {
             canvas_paths = {};
             let canvas = document.getElementById('canvas');
-            canvas.width = document.getElementById("app").clientWidth;
-            canvas.height = document.getElementById("app").clientHeight;
+            canvas.width = document.body.clientWidth;
+            canvas.height = document.body.clientHeight;
         
             let ctx = canvas.getContext("2d");
+            //ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.strokeStyle = "#ffffff";
             ctx.lineWidth = 4;
             ctx.fillStyle = "#009900";
+            
+            ctx.shadowColor = "#000000";
+            ctx.shadowOffsetX = 1; 
+            ctx.shadowOffsetY = 1;
+            ctx.shadowBlur = 4;
+
             for(let key in this.lines) {
                 let { x0, y0, x, y } = this.lines[key];
                 

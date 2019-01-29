@@ -139,7 +139,7 @@ Vue.component('node', {
             //allowFrom: '.node-header',
             ignoreFrom: '.no-handler',
             restrict: {
-                restriction: "parent",
+                //restriction: "parent",
                 //endOnly: true,
                 //elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             },
@@ -168,7 +168,7 @@ Vue.component('node', {
                 this.$emit('update', { pos: this.pos, size: this.size })
                 this.linesUpdate();
             }
-        })
+        }) 
     },
     beforeDestroy() {
         interact(this.$refs.interactElement).unset();

@@ -30,7 +30,7 @@ html, body, #app {
 
 .menu {
     position: fixed;
-    z-index: 1;
+    z-index: 5;
 }
 
 .line {
@@ -174,7 +174,7 @@ html, body, #app {
 
         &.node-output {
             text-align: right;
-            //float: right;
+            float: right;
 
             .bullet {
                 margin-right: .2em;
@@ -190,7 +190,6 @@ html, body, #app {
         
         &.node-output, &.node-input {
             font-size: 1rem;
-            width: 50%;
             display: inline-block;
             vertical-align: top;
         }

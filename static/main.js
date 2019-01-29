@@ -5,6 +5,7 @@ var app = new Vue({
 
         exportModal: false,
         importData: '',
+        importElementData: '',
 
         elements: [],
         colors: ['bandcamp','delicious','facebook','ficly','flickr',
@@ -49,6 +50,37 @@ var app = new Vue({
             this.$delete(this.elements, index);
             this.saveElement();
         },
+        cloneElement(index) {
+            let obj = Object.assign({}, this.elements[index]);
+
+            // Remove lines
+            for(let x of ["in", "out"]) {
+                obj[x] = [ ...obj[x] ];
+                for(let y in obj[x]) {
+                    obj[x][y] = { ...obj[x][y] };
+                    if(typeof obj[x][y].lines !== 'undefined') {
+                        delete obj[x][y].lines;
+                    }
+                }
+            }
+
+            // Deep copy
+            return JSON.parse(JSON.stringify(obj));
+        },
+        exportElement(index) {
+            // Deep copy
+            let obj = this.cloneElement(index);
+            obj.pos.x = 50;
+            obj.pos.y = 50
+            return obj;
+        },
+        duplicateElement(index) {
+            // Deep copy
+            let obj = this.cloneElement(index);
+            obj.pos.x += 50;
+            obj.pos.y += 50;
+            this.newElement(obj);
+        },
         saveElement(el = null, data = false) {
             if(data) {
                 let { pos, size } = data;
@@ -59,8 +91,8 @@ var app = new Vue({
             localStorage.setItem('elements', this.dataExport());
             this.linesUpdate();
         },
-        newElement() {
-            this.elements.push({
+        newElement(obj = null) {
+            this.elements.push(obj || {
                 title: 'New Node',
                 subtitle: '',
                 centered: true,
@@ -136,10 +168,15 @@ var app = new Vue({
         },
         linesUpdate() {
             canvas_paths = {};
-            let canvas = document.getElementById('canvas');
-            canvas.width = document.body.clientWidth;
-            canvas.height = document.body.clientHeight;
-        
+            let canvas = document.getElementById('canvas'),
+                body = document.body,
+                html = document.documentElement;
+            
+            canvas.width = Math.max( body.scrollWidth, body.offsetWidth, 
+                html.clientWidth, html.scrollWidth, html.offsetWidth );
+            canvas.height = Math.max( body.scrollHeight, body.offsetHeight, 
+                html.clientHeight, html.scrollHeight, html.offsetHeight );
+            
             let ctx = canvas.getContext("2d");
             //ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();

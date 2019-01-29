@@ -81,6 +81,10 @@
                     </ul>
 
                     <button @click="removeElement(index)">Remove</button>
+                    <button @click="duplicateElement(index)">Duplicate</button>
+                    
+                    <h2>Export Element</h2>
+                    <textarea rows="5" style="width: 100%;">{{ exportElement(index) }}</textarea>
                 </div>
             </modal>
         </template>
@@ -93,6 +97,9 @@
                 <h2>Import</h2>
                 <textarea rows="5" style="width: 100%;" v-model="importData"></textarea>
                 <button @click="dataImport(importData);">Apply changes</button>
+                <h2>Import Element</h2>
+                <textarea rows="5" style="width: 100%;" v-model="importElementData"></textarea>
+                <button @click="newElement(JSON.parse(importElementData));">Add Element</button>
             </div>
         </modal>
         

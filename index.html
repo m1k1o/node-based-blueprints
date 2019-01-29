@@ -11,8 +11,10 @@
 <body>
     <canvas id="canvas"></canvas>
     <div id="app">
-        <button @click="newElement();saveElement();">New</button>
-        <button @click="exportModal = true">Import / Export</button>
+        <div class="menu">
+            <button @click="newElement();saveElement();">New</button>
+            <button @click="exportModal = true">Import / Export</button>
+        </div>
 
         <template v-for="(el, index) in elements">
             <node
@@ -48,6 +50,7 @@
                             <span v-if="int_in.icon" v-bind:class="int_in.icon"></span>
                             <input type="text" v-model="int_in.text">
                             <button v-on:click="$delete(el.in, index);">&times;</button>
+                            <button v-if="Object.keys(el.in[index].lines).length" v-on:click="Object.keys(el.in[index].lines).map(key => deleteLine(key))">&times; Lines</button>
                         </li>
                         <li><button v-on:click="el.in.push({});">+</button></li>
                     </ul>
@@ -62,11 +65,12 @@
                                 <option>arrow</option>
                             </select>
                             <button v-on:click="$delete(el.out, index);">&times;</button>
+                            <button v-if="Object.keys(el.out[index].lines).length" v-on:click="Object.keys(el.out[index].lines).map(key => deleteLine(key))">&times; Lines</button>
                         </li>
                         <li><button v-on:click="el.out.push({});">+</button></li>
                     </ul>
 
-                    <button @click="$delete(elements, index);">Remove</button>
+                    <button @click="removeElement(index)">Remove</button>
                 </div>
             </modal>
         </template>

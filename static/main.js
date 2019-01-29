@@ -32,6 +32,23 @@ var app = new Vue({
         }
     },
     methods: {
+        removeElement(index) {
+            // Remove lines
+            for(let x of ["in", "out"]) {
+                this.elements[index][x].forEach(el => {
+                    // Loop through lines
+                    if(typeof el.lines !== 'undefined') {
+                        for(let key in el.lines) {
+                            console.log("remove", key)
+                            this.deleteLine(key);
+                        }
+                    }
+                });
+            }
+
+            this.$delete(this.elements, index);
+            this.saveElement();
+        },
         saveElement(el = null, data = false) {
             if(data) {
                 let { pos, size } = data;
@@ -39,7 +56,8 @@ var app = new Vue({
                 el.size = { ...size };
             }
 
-            localStorage.setItem('elements', this.dataExport())
+            localStorage.setItem('elements', this.dataExport());
+            this.linesUpdate();
         },
         newElement() {
             this.elements.push({
@@ -94,7 +112,7 @@ var app = new Vue({
                 let { x: x0, y: y0, el: el0 } = this.drawingLine;
                 
                 // Create unique name
-                let name =  Math.random().toString(36).substring(2, 15);
+                let name = Math.random().toString(36).substring(2, 15);
                 
                 // Set to global lines
                 let line = { x0, y0, x, y };
@@ -102,14 +120,13 @@ var app = new Vue({
                 
                 // Set to el_0 lines
                 typeof el0.lines !== 'undefined' || (el0.lines = {});
-                el0.lines[name] = { from: true, line };
+                this.$set(el0.lines, name, { from: true, line });
 
                 // Set to el_1 lines
                 typeof el.lines !== 'undefined' || (el.lines = {});
-                el.lines[name] = { from: false, line};
+                this.$set(el.lines, name, { from: false, line});
 
                 console.log("Line End");
-                this.linesUpdate();
                 this.saveElement();
                 this.drawingLine = null;
             } else {
@@ -206,10 +223,8 @@ canvas.addEventListener('click', (event) => {
     var y = event.pageY;
 
     for(let key in canvas_paths) {
-        console.log("clicked ", x, y)
         if(ctx.isPointInStroke(canvas_paths[key], x, y)) {
             app.deleteLine(key);
-            app.linesUpdate();
         }
     }
  });

@@ -28,6 +28,11 @@ html, body, #app {
     z-index: 1;
 }
 
+.menu {
+    position: fixed;
+    z-index: 1;
+}
+
 .line {
     position: absolute;
     z-index: 1;

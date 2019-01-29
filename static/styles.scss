@@ -114,7 +114,7 @@ html, body, #app {
             margin-right: .5em;
             
             &.full {
-                background: 116,199,255;
+                background: rgb(116,199,255);
             }
 
             &::after {
@@ -232,6 +232,10 @@ $profiles: (
 @each $profile, $color in $profiles {
     .node.#{$profile} {
         @include node($color);
+    }
+    
+    .bgcolor.#{$profile} {
+        background: $color;
     }
 }
 

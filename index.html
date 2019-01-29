@@ -36,6 +36,15 @@
                             <option value="">--default--</option>
                             <option v-for="color in colors">{{ color }}</option>
                         </select></li>
+                        <span
+                            v-for="color in colors"
+                            v-bind:title="color"
+                            v-bind:class="color" class="bgcolor"
+                            @click="el.color = color"
+                            v-bind:style="el.color == color ? 'height: 30px;width:30px;' : ''"
+                            style="cursor:pointer;width:20px;height:20px;display:inline-block;vertical-align:middle;">
+                        </span>
+
                         <li>Cendered: <input type="checkbox" v-model="el.centered" value="1"></li>
                     </ul>
                     
@@ -50,9 +59,9 @@
                             <span v-if="int_in.icon" v-bind:class="int_in.icon"></span>
                             <input type="text" v-model="int_in.text">
                             <button v-on:click="$delete(el.in, index);">&times;</button>
-                            <button v-if="Object.keys(el.in[index].lines).length" v-on:click="Object.keys(el.in[index].lines).map(key => deleteLine(key))">&times; Lines</button>
+                            <button v-if="typeof el.in[index].lines === 'object' && Object.keys(el.in[index].lines).length" v-on:click="Object.keys(el.in[index].lines).map(key => deleteLine(key))">&times; Lines</button>
                         </li>
-                        <li><button v-on:click="el.in.push({});">+</button></li>
+                        <li><button v-on:click="el.in.push({ lines: {} });">+</button></li>
                     </ul>
 
                     <h2>Out</h2>
@@ -65,9 +74,9 @@
                                 <option>arrow</option>
                             </select>
                             <button v-on:click="$delete(el.out, index);">&times;</button>
-                            <button v-if="Object.keys(el.out[index].lines).length" v-on:click="Object.keys(el.out[index].lines).map(key => deleteLine(key))">&times; Lines</button>
+                            <button v-if="typeof el.out[index].lines === 'object' && Object.keys(el.out[index].lines).length" v-on:click="Object.keys(el.out[index].lines).map(key => deleteLine(key))">&times; Lines</button>
                         </li>
-                        <li><button v-on:click="el.out.push({});">+</button></li>
+                        <li><button v-on:click="el.out.push({ lines: {} });">+</button></li>
                     </ul>
 
                     <button @click="removeElement(index)">Remove</button>

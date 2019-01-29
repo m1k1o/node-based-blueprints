@@ -5,7 +5,7 @@ Vue.component('icon', {
     },
     template: `<span class="icon" v-bind:class="{
         [el.icon]: true,
-        'full': Object.keys(el.lines).length
+        'full': el.lines && Object.keys(el.lines).length
     }" @click="clicked($event);"></span>`,
     methods: {
         getPos() {
@@ -54,7 +54,7 @@ Vue.component('node', {
         <ul class="node-interfaces node-input">
             <li v-for="int_in in el.in">
                 <span class="no-handler">
-                    <icon v-if="int_in.icon" v-bind:el="int_in" ref="handlers" @click="lines_create($event, int_in);"></icon>{{ int_in.text }}
+                    <icon v-if="int_in.icon" v-bind:el="int_in" ref="handlers" @click="linesCreate($event, int_in);"></icon>{{ int_in.text }}
                 </span>
             </li>
         </ul>
@@ -62,7 +62,7 @@ Vue.component('node', {
         <ul class="node-interfaces node-output">
             <li v-for="out in el.out">
                 <span class="no-handler">
-                    {{ out.text }}<icon v-if="out.icon" v-bind:el="out" ref="handlers" @click="lines_create($event, out);"></icon>
+                    {{ out.text }}<icon v-if="out.icon" v-bind:el="out" ref="handlers" @click="linesCreate($event, out);"></icon>
                 </span>
             </li>
         </ul>
@@ -70,18 +70,17 @@ Vue.component('node', {
     `,
     methods: {
         // Pass event to parent with element
-        lines_create(event, el) {
+        linesCreate(event, el) {
             this.$emit('lines:create', { ...event, el });
         },
         // Update all lines (on move, on resize)
-        lines_update() {
+        linesUpdate() {
             for (var ref in this.$refs.handlers) {
                 let pos = this.$refs.handlers[ref].getPos();
                 let el = this.$refs.handlers[ref].el;
 
                 for (var key in el.lines) {
                     var obj = el.lines[key];
-                    console.log(obj, pos);
 
                     if(!obj.from) {
                         this.$set(obj.line, 'x', pos.x);
@@ -102,7 +101,7 @@ Vue.component('node', {
         interactSetSize(w, h) { 
             this.size = { w, h };
         },
-        updateData() {
+        posSizeUpdate() {
             if(this.el.pos){
                 this.pos = { ...this.el.pos };
             }
@@ -113,14 +112,16 @@ Vue.component('node', {
         }
     },
     watch: { 
-        el: function() {
-            this.updateData();
+        el: {
+            immediate: true,
+            handler: function() {
+                this.posSizeUpdate();
+            }
         }
     },
     mounted() {
-        setTimeout(() => this.lines_update(), 0);
-        this.updateData();
-
+        setTimeout(() => this.linesUpdate(), 0);
+        
         interact(this.$refs.interactElement).draggable({
             // enable inertial throwing
             //inertia: true,
@@ -137,7 +138,7 @@ Vue.component('node', {
             },
             onend: () => {
                 this.$emit('update', { pos: this.pos, size: this.size })
-                this.lines_update();
+                this.linesUpdate();
             }
         })
         .resizable({
@@ -149,15 +150,15 @@ Vue.component('node', {
                 // restriction: '.designScreenContainer',
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             },
+            onmove: (event) => {
+                this.interactSetSize(event.rect.width, event.rect.height)
+                this.interactSetPosition(event.deltaRect.left, event.deltaRect.top);
+            },
             onend: () => {
                 this.$emit('update', { pos: this.pos, size: this.size })
-                this.lines_update();
+                this.linesUpdate();
             }
         })
-        .on('resizemove', (event) => {
-            this.interactSetSize(event.rect.width, event.rect.height)
-            this.interactSetPosition(event.deltaRect.left, event.deltaRect.top);
-        });
     },
     beforeDestroy() {
         interact(this.$refs.interactElement).unset();

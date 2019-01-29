@@ -127,7 +127,7 @@ html, body, #app {
 }
 
 .node .node-interfaces .bullet.full {
-  background: 116,199,255;
+  background: #74c7ff;
 }
 
 .node .node-interfaces .bullet::after {
@@ -214,6 +214,10 @@ html, body, #app {
   border-left-color: rgba(78, 155, 172, 0.6);
 }
 
+.bgcolor.bandcamp {
+  background: #4e9bac;
+}
+
 .node.delicious .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(36, 140, 255, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(36, 140, 255, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -234,6 +238,10 @@ html, body, #app {
 
 .node.delicious .node-interfaces .bullet::after {
   border-left-color: rgba(36, 140, 255, 0.6);
+}
+
+.bgcolor.delicious {
+  background: #248cff;
 }
 
 .node.facebook .node-header {
@@ -258,6 +266,10 @@ html, body, #app {
   border-left-color: rgba(59, 89, 152, 0.6);
 }
 
+.bgcolor.facebook {
+  background: #3b5998;
+}
+
 .node.ficly .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(181, 28, 44, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(181, 28, 44, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -278,6 +290,10 @@ html, body, #app {
 
 .node.ficly .node-interfaces .bullet::after {
   border-left-color: rgba(181, 28, 44, 0.6);
+}
+
+.bgcolor.ficly {
+  background: #b51c2c;
 }
 
 .node.flickr .node-header {
@@ -302,6 +318,10 @@ html, body, #app {
   border-left-color: rgba(0, 99, 219, 0.6);
 }
 
+.bgcolor.flickr {
+  background: #0063db;
+}
+
 .node.github .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(65, 131, 196, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(65, 131, 196, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -322,6 +342,10 @@ html, body, #app {
 
 .node.github .node-interfaces .bullet::after {
   border-left-color: rgba(65, 131, 196, 0.6);
+}
+
+.bgcolor.github {
+  background: #4183c4;
 }
 
 .node.googleplus .node-header {
@@ -346,6 +370,10 @@ html, body, #app {
   border-left-color: rgba(221, 75, 57, 0.6);
 }
 
+.bgcolor.googleplus {
+  background: #dd4b39;
+}
+
 .node.instagram .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(81, 127, 164, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(81, 127, 164, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -366,6 +394,10 @@ html, body, #app {
 
 .node.instagram .node-interfaces .bullet::after {
   border-left-color: rgba(81, 127, 164, 0.6);
+}
+
+.bgcolor.instagram {
+  background: #517fa4;
 }
 
 .node.kickstarter .node-header {
@@ -390,6 +422,10 @@ html, body, #app {
   border-left-color: rgba(118, 204, 30, 0.6);
 }
 
+.bgcolor.kickstarter {
+  background: #76cc1e;
+}
+
 .node.lanyrd .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(21, 46, 81, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(21, 46, 81, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -410,6 +446,10 @@ html, body, #app {
 
 .node.lanyrd .node-interfaces .bullet::after {
   border-left-color: rgba(21, 46, 81, 0.6);
+}
+
+.bgcolor.lanyrd {
+  background: #152e51;
 }
 
 .node.lastfm .node-header {
@@ -434,6 +474,10 @@ html, body, #app {
   border-left-color: rgba(213, 16, 7, 0.6);
 }
 
+.bgcolor.lastfm {
+  background: #d51007;
+}
+
 .node.linkedin .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(0, 123, 182, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(0, 123, 182, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -454,6 +498,10 @@ html, body, #app {
 
 .node.linkedin .node-interfaces .bullet::after {
   border-left-color: rgba(0, 123, 182, 0.6);
+}
+
+.bgcolor.linkedin {
+  background: #007bb6;
 }
 
 .node.photodrop .node-header {
@@ -478,6 +526,10 @@ html, body, #app {
   border-left-color: rgba(205, 182, 227, 0.6);
 }
 
+.bgcolor.photodrop {
+  background: #cdb6e3;
+}
+
 .node.pinterest .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(203, 32, 39, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(203, 32, 39, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -498,6 +550,10 @@ html, body, #app {
 
 .node.pinterest .node-interfaces .bullet::after {
   border-left-color: rgba(203, 32, 39, 0.6);
+}
+
+.bgcolor.pinterest {
+  background: #cb2027;
 }
 
 .node.rdio .node-header {
@@ -522,6 +578,10 @@ html, body, #app {
   border-left-color: rgba(0, 136, 218, 0.6);
 }
 
+.bgcolor.rdio {
+  background: #0088da;
+}
+
 .node.soundcloud .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(255, 102, 0, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(255, 102, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -542,6 +602,10 @@ html, body, #app {
 
 .node.soundcloud .node-interfaces .bullet::after {
   border-left-color: rgba(255, 102, 0, 0.6);
+}
+
+.bgcolor.soundcloud {
+  background: #f60;
 }
 
 .node.twitter .node-header {
@@ -566,6 +630,10 @@ html, body, #app {
   border-left-color: rgba(0, 172, 237, 0.6);
 }
 
+.bgcolor.twitter {
+  background: #00aced;
+}
+
 .node.vimeo .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(170, 212, 80, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(170, 212, 80, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -588,6 +656,10 @@ html, body, #app {
   border-left-color: rgba(170, 212, 80, 0.6);
 }
 
+.bgcolor.vimeo {
+  background: #aad450;
+}
+
 .node.youtube .node-header {
   background: -webkit-gradient(linear, left top, right top, from(rgba(187, 0, 0, 0.4)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(187, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
@@ -608,6 +680,10 @@ html, body, #app {
 
 .node.youtube .node-interfaces .bullet::after {
   border-left-color: rgba(187, 0, 0, 0.6);
+}
+
+.bgcolor.youtube {
+  background: #b00;
 }
 
 .modal-mask {
